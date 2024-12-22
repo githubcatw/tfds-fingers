@@ -18,7 +18,7 @@ class Builder(tfds.core.GeneratorBasedBuilder):
         features=tfds.features.FeaturesDict({
             # These are the features of your dataset like images, labels ...
             'image': tfds.features.Image(shape=(None, None, 3)),
-            'label': tfds.features.ClassLabel(names=['no', 'yes']),
+            'label': tfds.features.ClassLabel(names=['1', '2','3','4','5']),
         }),
         # If there's a common (input, target) tuple from the
         # features, specify them here. They'll be used if
@@ -39,8 +39,12 @@ class Builder(tfds.core.GeneratorBasedBuilder):
   def _generate_examples(self, path):
     """Yields examples."""
     # TODO(fingers): Yields (key, example) tuples from the dataset
-    for f in path.glob('*.jpeg'):
+    for f in path.glob('*.png'):
+      # get the label
+      end = f.split("_")[1]
+      # currently we're focusing on number detection, so just pass the number
+      label = end[0]
       yield 'key', {
           'image': f,
-          'label': 'yes',
+          'label': label,
       }
