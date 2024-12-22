@@ -29,12 +29,11 @@ class Builder(tfds.core.GeneratorBasedBuilder):
 
   def _split_generators(self, dl_manager: tfds.download.DownloadManager):
     """Returns SplitGenerators."""
-    # TODO(fingers): Downloads the data and defines the splits
-    path = dl_manager.download_and_extract('https://todo-data-url')
 
-    # TODO(fingers): Returns the Dict[split names, Iterator[Key, Example]]
+    # Returns the Dict[split names, Iterator[Key, Example]]
     return {
-        'train': self._generate_examples(path / 'train_imgs'),
+        'train': self._generate_examples('/kaggle/input/fingers/train'),
+        'test': self._generate_examples('/kaggle/input/fingers/test')
     }
 
   def _generate_examples(self, path):
