@@ -41,7 +41,7 @@ class Builder(tfds.core.GeneratorBasedBuilder):
     # TODO(fingers): Yields (key, example) tuples from the dataset
     for f in path.glob('*.png'):
       # get the label
-      end = f.split("_")[1]
+      end = f.stem.split("_")[1]
       # currently we're focusing on number detection, so just pass the number
       label = end[0]
       yield 'key', {
