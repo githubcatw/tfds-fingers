@@ -1,7 +1,7 @@
 """fingers dataset."""
 
 import tensorflow_datasets as tfds
-
+from pathlib import Path
 
 class Builder(tfds.core.GeneratorBasedBuilder):
   """DatasetBuilder for fingers dataset."""
@@ -32,8 +32,8 @@ class Builder(tfds.core.GeneratorBasedBuilder):
 
     # Returns the Dict[split names, Iterator[Key, Example]]
     return {
-        'train': self._generate_examples('/kaggle/input/fingers/train'),
-        'test': self._generate_examples('/kaggle/input/fingers/test')
+        'train': self._generate_examples(Path('/kaggle/input/fingers/train')),
+        'test': self._generate_examples(Path('/kaggle/input/fingers/test'))
     }
 
   def _generate_examples(self, path):
