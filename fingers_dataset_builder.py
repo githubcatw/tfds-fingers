@@ -7,11 +7,12 @@ from tensorflow import keras
 class Builder(tfds.core.GeneratorBasedBuilder):
   """DatasetBuilder for fingers dataset."""
 
-  VERSION = tfds.core.Version('1.2.0')
+  VERSION = tfds.core.Version('1.3.0')
   RELEASE_NOTES = {
       '1.0.0': 'Initial release.',
       '1.1.0': 'Load images as arrays instead of providing the PNG data.',
-      '1.2.0': 'Make images grayscale.'
+      '1.2.0': 'Make images grayscale.',
+      '1.3.0': 'Switch back to providing paths.'
   }
 
   def _info(self) -> tfds.core.DatasetInfo:
@@ -47,10 +48,7 @@ class Builder(tfds.core.GeneratorBasedBuilder):
       end = f.stem.split("_")[1]
       # currently we're focusing on number detection, so just pass the number
       label = end[0]
-      # load the image
-      image = keras.utils.load_img(f, color_mode='grayscale')
-      input_arr = keras.utils.img_to_array(image)
       yield 'key', {
-          'image': input_arr,
+          'image': f,
           'label': label,
       }
