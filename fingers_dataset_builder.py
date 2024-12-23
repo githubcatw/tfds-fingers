@@ -2,6 +2,7 @@
 
 import tensorflow_datasets as tfds
 from pathlib import Path
+from tf import keras
 
 class Builder(tfds.core.GeneratorBasedBuilder):
   """DatasetBuilder for fingers dataset."""
@@ -44,7 +45,10 @@ class Builder(tfds.core.GeneratorBasedBuilder):
       end = f.stem.split("_")[1]
       # currently we're focusing on number detection, so just pass the number
       label = end[0]
+      # load the image
+      image = keras.utils.load_img(f)
+      input_arr = keras.utils.img_to_array(image)
       yield 'key', {
-          'image': f,
+          'image': input_arr,
           'label': label,
       }
