@@ -7,10 +7,11 @@ from tensorflow import keras
 class Builder(tfds.core.GeneratorBasedBuilder):
   """DatasetBuilder for fingers dataset."""
 
-  VERSION = tfds.core.Version('1.1.0')
+  VERSION = tfds.core.Version('1.2.0')
   RELEASE_NOTES = {
       '1.0.0': 'Initial release.',
-      '1.1.0': 'Load images as arrays instead of providing the PNG data.'
+      '1.1.0': 'Load images as arrays instead of providing the PNG data.',
+      '1.2.0': 'Make images grayscale.'
   }
 
   def _info(self) -> tfds.core.DatasetInfo:
@@ -19,7 +20,7 @@ class Builder(tfds.core.GeneratorBasedBuilder):
     return self.dataset_info_from_configs(
         features=tfds.features.FeaturesDict({
             # These are the features of your dataset like images, labels ...
-            'image': tfds.features.Image(shape=(None, None, 3)),
+            'image': tfds.features.Image(shape=(None, None, 1)),
             'label': tfds.features.ClassLabel(names=['0','1', '2','3','4','5']),
         }),
         # If there's a common (input, target) tuple from the
@@ -47,7 +48,7 @@ class Builder(tfds.core.GeneratorBasedBuilder):
       # currently we're focusing on number detection, so just pass the number
       label = end[0]
       # load the image
-      image = keras.utils.load_img(f)
+      image = keras.utils.load_img(f, color_mode='grayscale')
       input_arr = keras.utils.img_to_array(image)
       yield 'key', {
           'image': input_arr,
