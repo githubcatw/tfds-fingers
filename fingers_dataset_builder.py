@@ -7,9 +7,10 @@ from tensorflow import keras
 class Builder(tfds.core.GeneratorBasedBuilder):
   """DatasetBuilder for fingers dataset."""
 
-  VERSION = tfds.core.Version('1.0.0')
+  VERSION = tfds.core.Version('1.1.0')
   RELEASE_NOTES = {
       '1.0.0': 'Initial release.',
+      '1.1.0': 'Load images as arrays instead of providing the PNG data.'
   }
 
   def _info(self) -> tfds.core.DatasetInfo:
