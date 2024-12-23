@@ -2,7 +2,7 @@
 
 import tensorflow_datasets as tfds
 from pathlib import Path
-from tf import keras
+from tensorflow import keras
 
 class Builder(tfds.core.GeneratorBasedBuilder):
   """DatasetBuilder for fingers dataset."""
